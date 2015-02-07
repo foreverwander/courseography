@@ -59,7 +59,6 @@ headerCSS = do
            color white
            h2 ?
              do fontSize $ em 1.6
-                fontWeight bold
                 textAlign $ alignSide sideLeft
                 width $ px 200
                 display inlineBlock
@@ -78,6 +77,8 @@ headerCSS = do
                 padding 0 (px 10) 0 (px 10)
                 a <? do
                     color white
+                    hover & do
+                        color gray
 
 aDefaultCSS = do
     a <> a # hover <> a # visited <> a # active ? do
@@ -588,13 +589,11 @@ tdColours = ".timetable " ?  do
             backgroundColor red3
             ":hover" & do
                 backgroundColor red4
-    td # ("in-conflict" *= "false") # ("satisfied" *= "true") # ("type" *= "L") ? do
-            backgroundColor blue3
-    td # ("in-conflict" *= "false") # ("satisfied" *= "true") # ("type" *= "T") ? do
-            backgroundColor teal1
-    td # ("in-conflict" *= "false") # ("satisfied" *= "true") # ("type" *= "P") ? do
-            backgroundColor orange1
-
+    td # ("in-conflict" *= "false") # ("satisfied" *= "true") ? do
+        backgroundColor blue3
+        Clay.empty & do
+            backgroundColor white
+            
 
 teal1 = parse "#737A99"
 orange1 = parse "#1E7FCC"
