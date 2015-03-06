@@ -10,7 +10,7 @@
              TemplateHaskell,
              TypeFamilies #-}
 
-module Tables where
+module Database.Tables where
 
 import Database.Persist.TH
 import qualified Data.Text as T
@@ -21,6 +21,10 @@ import Control.Applicative
 
 data Time = Time { timeField :: [Int] } deriving (Show, Read, Eq)
 derivePersistField "Time"
+
+
+data Point = Point { point :: (Rational, Rational) } deriving (Show, Read, Eq)
+derivePersistField "Point"
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Courses json
@@ -65,6 +69,45 @@ Distribution
     dId Int
     description String
     deriving Show
+
+Graphs
+    gId Int
+    title String
+    deriving Show
+
+Rects
+    gId Int
+    rId String
+    width Rational
+    height Rational
+    xPos Rational
+    yPos Rational
+    fill String
+    stroke String
+    isHybrid Bool
+    deriving Show
+
+Texts
+    gId Int
+    rId String
+    xPos Rational
+    yPos Rational
+    text String
+    deriving Show
+
+Paths
+    d [Point]
+    fill String
+    stroke String
+    isRegion Bool
+    deriving Show
+
+Ellipses
+    xPos Rational
+    yPos Rational
+    rx Rational
+    ry Rational
+    stroke String
 |]
 
 -- | A Lecture.
